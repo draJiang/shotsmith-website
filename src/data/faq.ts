@@ -3,23 +3,27 @@ import { siteDetails } from "./siteDetails";
 
 export const faqs: IFAQ[] = [
     {
-        question: `Is ${siteDetails.siteName} secure?`,
-        answer: 'Absolutely. We use bank-level encryption to protect your data and never store your login information. Plus, our biometric authentication adds an extra layer of security.',
+        question: `Is ${siteDetails.siteName} free?`,
+        answer: 'Yes. Capturing, annotating, pinning, screen recording and screenshot history are free. You can also build workflows for free; running them and using the command line tool need Shotsmith Pro.',
     },
     {
-        question: `Can I use ${siteDetails.siteName} on multiple devices?`,
-        answer: 'Absolutely! Your Finwise account syncs seamlessly across all your devices - smartphone, tablet, and computer.',
+        question: 'Is Shotsmith Pro a subscription?',
+        answer: 'No. Shotsmith Pro is a one-time purchase of $9.',
     },
     {
-        question: 'Can I connect all my bank accounts?',
-        answer: `Yes! ${siteDetails.siteName} supports connections with over 10,000 financial institutions worldwide. Simply log in through our secure portal to link your accounts.`
+        question: 'How many Macs can I use Pro on?',
+        answer: 'One license works on two Macs. To move it to another Mac, open Settings → License and choose Deactivate This Mac, then activate the new one with the same key.',
     },
     {
-        question: 'Do I need any financial expertise to use the investing features?',
-        answer: 'Not at all! Our expert-curated portfolios and educational resources make investing accessible to everyone, regardless of experience level.',
+        question: 'How do I activate Pro after buying?',
+        answer: `After checkout, ${siteDetails.siteName} opens and activates automatically. If it doesn't, paste the license key from your receipt email into Settings → License.`,
     },
     {
-        question: 'What if I need help using the app?',
-        answer: 'Our dedicated support team is available 24/7 via chat or email. Plus, we offer extensive in-app tutorials and a comprehensive knowledge base to help you make the most of Finwise.'
-    }
+        question: 'Do my screenshots leave my Mac?',
+        answer: 'Your screenshot history stays on your Mac, and text recognition runs on device. Workflows only send data to services you add yourself, such as an LLM provider or a local Ollama.',
+    },
+    {
+        question: 'Which Macs are supported?',
+        answer: `${siteDetails.siteName} needs ${siteDetails.minimumSystem}.`,
+    },
 ];

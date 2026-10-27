@@ -12,6 +12,7 @@ const manrope = Manrope({ subsets: ['latin'] });
 const sourceSans = Source_Sans_3({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteDetails.siteUrl),
   title: siteDetails.metadata.title,
   description: siteDetails.metadata.description,
   openGraph: {
@@ -21,18 +22,18 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/og-image.jpg',
-        width: 1200,
-        height: 675,
+        url: '/images/app-icon.png',
+        width: 1024,
+        height: 1024,
         alt: siteDetails.siteName,
       },
     ],
   },
   twitter: {
-    card: 'summary_large_image',
+    card: 'summary',
     title: siteDetails.metadata.title,
     description: siteDetails.metadata.description,
-    images: ['/images/twitter-image.jpg'],
+    images: ['/images/app-icon.png'],
   },
 };
 

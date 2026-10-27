@@ -4,13 +4,13 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-  --primary: #FED835;
-  --secondary: #304fff;
+  --foreground: #141418;
+  --primary: #F2512D;
+  --secondary: #F2512D;
 
-  --primary-accent: #e5c230;
-  --foreground-accent: #454545;
-  --hero-background: #F3F3F5;
+  --primary-accent: #D9431F;
+  --foreground-accent: #55555E;
+  --hero-background: #F4F4F6;
 }
 
 html {
@@ -43,10 +43,6 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Manrope", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
-}
-
-#logos svg {
-  @apply w-fit h-10 sm:h-12;
 }
 
 .benefit-section:last-of-type > div {

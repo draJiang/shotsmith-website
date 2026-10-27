@@ -19,25 +19,19 @@ export interface IBenefitBullet {
 export interface IPricing {
     name: string;
     price: number | string;
+    /** 价格后面的小字，如 “one-time” */
+    priceNote?: string;
+    description: string;
+    /** 功能列表上方的小标题 */
+    featuresHeading: string;
     features: string[];
+    cta: 'download' | 'buy';
+    highlight?: boolean;
 }
 
 export interface IFAQ {
     question: string;
     answer: string;
-}
-
-export interface ITestimonial {
-    name: string;
-    role: string;
-    message: string;
-    avatar: string;
-}
-
-export interface IStats {
-    title: string;
-    icon: JSX.Element;
-    description: string;
 }
 
 export interface ISocials {

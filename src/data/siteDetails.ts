@@ -1,12 +1,24 @@
+// Vercel 部署时自动用生产域名；本地开发为 localhost。设置 NEXT_PUBLIC_SITE_URL 可以覆盖
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+    || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'http://localhost:3000');
+
 export const siteDetails = {
     siteName: 'Shotsmith',
-    siteUrl: 'https://finwise-omega.vercel.app/',
+    siteUrl,
     metadata: {
-        title: 'Shotsmith — Screenshots for Mac',
-        description: 'Capture, annotate, pin, and record your screen on Mac, then send screenshots through workflows.',
+        title: 'Shotsmith — Capture, annotate, and automate screenshots on Mac',
+        description: 'A native Mac app for capturing regions, windows and long pages, marking them up in seconds, and sending them through workflows — OCR, translation, LLMs and scripts.',
     },
     language: 'en-us',
     locale: 'en-US',
-    siteLogo: `${process.env.BASE_PATH || ''}/images/logo.png`, // or use a string for the logo e.g. "TechStartup"
+    // Mac App 的下载地址；为空时下载按钮显示“Coming soon”
+    downloadUrl: '',
+    // Lemon Squeezy 结账页，付款后跳到 /activate.html 自动激活
+    checkoutUrl: 'https://jiang.lemonsqueezy.com/checkout/buy/be2ad7d4-f8b3-4ccb-a616-3bbf7e0a33f1',
+    // 顾客查看订单和密钥
+    ordersUrl: 'https://app.lemonsqueezy.com/my-orders',
+    // 支持邮箱；为空时不显示
+    supportEmail: '',
+    minimumSystem: 'macOS 14 Sonoma or later',
     googleAnalyticsId: '', // e.g. G-XXXXXXX,
 }

@@ -4,9 +4,8 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { Transition } from '@headlessui/react';
 import { HiOutlineXMark, HiBars3 } from 'react-icons/hi2';
-import { FaFingerprint } from 'react-icons/fa';
-
 import Container from './Container';
+import Logo from './Logo';
 import { siteDetails } from '@/data/siteDetails';
 import { menuItems } from '@/data/menuItems';
 
@@ -23,7 +22,7 @@ const Header: React.FC = () => {
                 <nav className="shadow-md md:shadow-none bg-white md:bg-transparent mx-auto flex justify-between items-center py-2 px-5 md:py-10">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2">
-                        <FaFingerprint className="text-foreground min-w-fit w-7 h-7" />
+                        <Logo className="text-foreground min-w-fit w-7 h-7" />
                         <span className="manrope text-xl font-semibold text-foreground cursor-pointer">
                             {siteDetails.siteName}
                         </span>
@@ -39,8 +38,8 @@ const Header: React.FC = () => {
                             </li>
                         ))}
                         <li>
-                            <Link href="#cta" className="text-black bg-primary hover:bg-primary-accent px-8 py-3 rounded-full transition-colors">
-                                Download
+                            <Link href="#pricing" className="text-white bg-primary hover:bg-primary-accent px-8 py-3 rounded-full transition-colors">
+                                Get Shotsmith
                             </Link>
                         </li>
                     </ul>
@@ -50,7 +49,7 @@ const Header: React.FC = () => {
                         <button
                             onClick={toggleMenu}
                             type="button"
-                            className="bg-primary text-black focus:outline-none rounded-full w-10 h-10 flex items-center justify-center"
+                            className="bg-primary text-white focus:outline-none rounded-full w-10 h-10 flex items-center justify-center"
                             aria-controls="mobile-menu"
                             aria-expanded={isOpen}
                         >
@@ -85,8 +84,8 @@ const Header: React.FC = () => {
                             </li>
                         ))}
                         <li>
-                            <Link href="#cta" className="text-black bg-primary hover:bg-primary-accent px-5 py-2 rounded-full block w-fit" onClick={toggleMenu}>
-                                Get Started
+                            <Link href="#pricing" className="text-white bg-primary hover:bg-primary-accent px-5 py-2 rounded-full block w-fit" onClick={toggleMenu}>
+                                Get Shotsmith
                             </Link>
                         </li>
                     </ul>

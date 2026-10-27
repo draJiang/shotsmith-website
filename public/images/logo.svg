@@ -1,0 +1,5 @@
+<svg fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="t"><title>Shotsmith symbol</title>
+  <title id="t">Shotsmith symbol</title>
+  <path id="screen" fill="#000000" d="M52 44 H104 A12 12 0 0 1 116 56 V128 A12 12 0 0 0 128 140 H200 A12 12 0 0 1 212 152 V204 A24 24 0 0 1 188 228 H52 A24 24 0 0 1 28 204 V68 A24 24 0 0 1 52 44 Z"/>
+  <path id="lifted" fill="#000000" d="M160 28 H208 A20 20 0 0 1 228 48 V96 A20 20 0 0 1 208 116 H160 A20 20 0 0 1 140 96 V48 A20 20 0 0 1 160 28 Z"/>
+</svg>

@@ -1,13 +1,13 @@
 import { IMenuItem, ISocials } from "@/types";
+import { siteDetails } from "./siteDetails";
 
 export const footerDetails: {
     subheading: string;
     quickLinks: IMenuItem[];
     email: string;
-    telephone: string;
     socials: ISocials;
 } = {
-    subheading: "Empowering businesses with cutting-edge financial technology solutions.",
+    subheading: "Capture, annotate, and automate screenshots on your Mac.",
     quickLinks: [
         {
             text: "Features",
@@ -18,20 +18,14 @@ export const footerDetails: {
             url: "#pricing"
         },
         {
-            text: "Testimonials",
-            url: "#testimonials"
+            text: "FAQ",
+            url: "#faq"
+        },
+        {
+            text: "Find Your License Key",
+            url: siteDetails.ordersUrl
         }
     ],
-    email: 'address@yoursite.com',
-    telephone: '+1 (123) 456-7890',
-    socials: {
-        // github: 'https://github.com',
-        // x: 'https://twitter.com/x',
-        twitter: 'https://twitter.com/Twitter',
-        facebook: 'https://facebook.com',
-        // youtube: 'https://youtube.com',
-        linkedin: 'https://www.linkedin.com',
-        // threads: 'https://www.threads.net',
-        instagram: 'https://www.instagram.com',
-    }
+    email: siteDetails.supportEmail,
+    socials: {}
 }
