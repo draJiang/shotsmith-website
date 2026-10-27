@@ -1,121 +1,57 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
+import { GoogleAnalytics } from '@next/third-parties/google';
+import { Source_Sans_3, Manrope } from "next/font/google";
+
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { siteDetails } from '@/data/siteDetails';
 
 import "./globals.css";
-import { Geist, Geist_Mono } from "next/font/google";
-import { basehub } from "basehub";
 
-import { Providers } from "./providers";
-import { Header } from "./_components/header";
-import { Footer } from "./_components/footer";
-import { Newsletter } from "./_sections/newsletter";
-import { draftMode } from "next/headers";
+const manrope = Manrope({ subsets: ['latin'] });
+const sourceSans = Source_Sans_3({ subsets: ['latin'] });
 
-const geist = Geist({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-sans",
-  fallback: [
-    "Inter",
-    "-apple-system",
-    "BlinkMacSystemFont",
-    "Segoe UI",
-    "Roboto",
-    "Oxygen",
-    "Ubuntu",
-    "Cantarell",
-    "Fira Sans",
-    "Droid Sans",
-    "Helvetica Neue",
-    "sans-serif",
-  ],
-});
-
-const geistMono = Geist_Mono({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-mono",
-  fallback: ["monaco", "monospace"],
-});
-
-export const generateMetadata = async (): Promise<Metadata> => {
-  const data = await basehub({ cache: "no-store", draft: (await draftMode()).isEnabled }).query({
-    site: {
-      settings: {
-        metadata: {
-          sitename: true,
-          titleTemplate: true,
-          defaultTitle: true,
-          defaultDescription: true,
-          favicon: {
-            url: true,
-            mimeType: true,
-          },
-          ogImage: {
-            url: true,
-          },
-          xAccount: {
-            url: true,
-          },
-        },
-      },
-    },
-  });
-
-  const images = [{ url: data.site.settings.metadata.ogImage.url }];
-
-  let xAccount: string | undefined = undefined;
-
-  if (data.site.settings.metadata.xAccount) {
-    try {
-      const xUrl = new URL(data.site.settings.metadata.xAccount.url);
-      const split = xUrl.pathname.split("/");
-
-      xAccount = split[split.length - 1];
-    } catch {
-      // invalid url noop
-    }
-  }
-
-  return {
-    title: {
-      default: data.site.settings.metadata.defaultTitle,
-      template: data.site.settings.metadata.titleTemplate,
-    },
-    applicationName: data.site.settings.metadata.sitename,
-    description: data.site.settings.metadata.defaultDescription,
-    icons: [
+export const metadata: Metadata = {
+  title: siteDetails.metadata.title,
+  description: siteDetails.metadata.description,
+  openGraph: {
+    title: siteDetails.metadata.title,
+    description: siteDetails.metadata.description,
+    url: siteDetails.siteUrl,
+    type: 'website',
+    images: [
       {
-        url: data.site.settings.metadata.favicon.url,
-        rel: "icon",
-        type: data.site.settings.metadata.favicon.mimeType,
+        url: '/images/og-image.jpg',
+        width: 1200,
+        height: 675,
+        alt: siteDetails.siteName,
       },
     ],
-    openGraph: { type: "website", images, siteName: data.site.settings.metadata.sitename },
-    twitter: {
-      card: "summary_large_image",
-      images,
-      site: data.site.settings.metadata.sitename,
-      creator: xAccount,
-    },
-  };
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteDetails.metadata.title,
+    description: siteDetails.metadata.description,
+    images: ['/images/twitter-image.jpg'],
+  },
 };
 
-export const viewport: Viewport = {
-  maximumScale: 1, // Disable auto-zoom on mobile Safari
-};
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html suppressHydrationWarning lang="en">
+    <html lang="en">
       <body
-        className={`min-h-svh max-w-[100vw] bg-surface-primary text-text-primary dark:bg-dark-surface-primary dark:text-dark-text-primary ${geistMono.variable} ${geist.variable} font-sans`}
+        className={`${manrope.className} ${sourceSans.className} antialiased`}
       >
-        <Providers>
-          <Header />
-          <main className="min-h-[calc(100svh-var(--header-height))]">{children}</main>
-          <Newsletter />
-          <Footer />
-        </Providers>
+        {siteDetails.googleAnalyticsId && <GoogleAnalytics gaId={siteDetails.googleAnalyticsId} />}
+        <Header />
+        <main>
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );

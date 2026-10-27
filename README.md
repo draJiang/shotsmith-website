@@ -1,45 +1,104 @@
-![Open Graph, Homepage (2) (1)](https://github.com/basehub-ai/marketing-website-template/assets/40034115/e8566293-9c58-4467-a4c7-7a700eea10c8)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fnexi-launch%2Ffinwise-landing-page)
 
-[BaseHub Templates](https://basehub.com/templates) are production-ready website templates, powered by BaseHub.
+# Finwise - Next.js + Tailwind Landing Page Template
 
-# Marketing Website Template
+Finwise is a lightweight, easily configurable, and customizable **Next.js** and **Tailwind CSS** landing page template. It’s built to be adaptable, performant, and perfect for any product launch, portfolio, or promotional site.
 
-[![Use template](https://basehub.com/template-button.svg)](https://basehub.com/basehub/marketing-website)
+Try out the demo here: [https://finwise-omega.vercel.app](https://finwise-omega.vercel.app).
 
-Fully featured marketing website.
+Please check out the documentation below to get started.
 
-- 🔸 Perfect for startups and indie hackers looking to showcase their SaaS
-- 🔸 Fully editable from BaseHub
-- 🔸 Comes with Search, Dark/Light Mode, Analytics, and more
-- 🔸 Requires just a BaseHub account and a deployment platform—no other service
+---
 
-## Stack
+## Features
 
-- Next.js
-- BaseHub
-- Tailwind CSS
+- **Next.js** app router with **TypeScript**
+- **Tailwind CSS** v3 for flexible styling customization
+- Smooth transitions powered by **Framer Motion**
+- Built-in **font optimization** with [next/font](https://nextjs.org/docs/app/api-reference/components/font)
+- Automatic **image optimization** via [next/image](https://nextjs.org/docs/app/building-your-application/optimizing/images)
+- Access to **31+ icon packs** via [React Icons](https://react-icons.github.io/react-icons/)
+- Near-perfect **Lighthouse score**
+- Modular, responsive, and **scalable components**
+- **Free lifetime updates**
 
-## One Click Deployment
+---
 
-[![Deploy with Vercel](https://vercel.com/button)]([](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbasehub-ai%2Fmarketing-website-template&integration-ids=oac_xwgyJe0UwFLtsKIvIScYh0rY&env=&demo-url=https%3A%2F%2Fnextjs-marketing-website.basehub.com%2F&demo-description=Introducing%20the%20%E2%80%9CCMS%20Marketing%20Website%20Template%E2%80%9D%20by%20BaseHub%E2%80%94a%20sleek%2C%20modern%2C%20and%20fully%20responsive%20solution%20for%20your%20marketing%20needs.%20This%20template%20is%20designed%20to%20empower%20businesses%20with%20an%20intuitive%2C%20easy-to-navigate%20interface%20that%20seamlessly%20integrates%20with%20any%20CMS%20platform.%0A%0AKey%20Features%3A%0A%0A%09%E2%80%A2%09Responsive%20Design%3A%20Ensures%20optimal%20viewing%20experience%20across%20all%20devices%2C%20from%20desktops%20to%20smartphones.%0A%09%E2%80%A2%09Customizable%20Layouts%3A%20Offers%20flexible%20and%20dynamic%20layout%20options%20to%20suit%20various%20content%20needs%20and%20styles.%0A%09%E2%80%A2%09SEO%20Friendly%3A%20Built%20with%20SEO%20best%20practices%20in%20mind%20to%20improve%20your%20search%20engine%20rankings%20and%20drive%20organic%20traffic.%0A%09%E2%80%A2%09Blog%20and%20Changelog%3A%20Blog%20and%20changelog%20integrated%20to%20have%20a%20nice%20experience.%0A%09%E2%80%A2%09Integrated%20Analytics%3A%20Easy%20integration%20with%20popular%20analytics%20tools%20to%20track%20and%20analyze%20website%20performance.%0A%09%E2%80%A2%09Social%20Media%20Integration%3A%20Connect%20and%20engage%20with%20your%20audience%20through%20seamless%20social%20media%20integration.%0A%09%E2%80%A2%09Text%20based%20Search%3A%20Out%20of%20the%20box%20integrated%20search%20with%20BaseHub%0A%0AWhether%20you%20are%20launching%20a%20new%20product%2C%20promoting%20a%20service%2C%20or%20building%20brand%20awareness%2C%20the%20%E2%80%9CCMS%20Marketing%20Website%20Template%22%20will%20fits%20perfectly.&demo-image=https%3A%2F%2Fbasehub.earth%2Ffa068a12%2FuK8Uaibmc32TOGypkLvBu%2Freadme-(2).png&external-id=mly6i259eym3jkyvq6txyciu%3AViwfZNGQgCUccNVudPIns))
+## Sections
 
-_You can deploy this anywhere. Vercel works nicely and with one click._
+- Hero
+- Partners or Clients Logos
+- Features
+- Pricing
+- Testimonials
+- FAQ
+- Statistics
+- CTA
+- Footer
 
-## Local Development
+---
 
-**Install dependencies**
-```bash
-pnpm i
-```
+## Getting Started
 
-**Add your BASEHUB_TOKEN to `.env.local`**
-```txt
-# .env.local
+### Prerequisites
 
-BASEHUB_TOKEN="<get-it-from-your-basehub-repo>"
-```
+Before starting, make sure you have the following installed:
 
-**Start the dev server**
-```bash
-pnpm dev
-```
+- **Node.js**: Version 18 or later
+- **npm**: Version 8 or later (bundled with Node.js)
+- **Code editor**: [VS Code](https://code.visualstudio.com/) is recommended.
+
+### Steps
+
+1. **Install dependencies**: Run `npm install`
+2. **Run the development server**: `npm run dev`
+3. **View your project**: Open [localhost:3000](http://localhost:3000)
+
+---
+
+## Customization
+
+1. **Edit colors**: Update `globals.css` for primary, secondary, background, and accent colors.
+2. **Update site details**: Customize `siteDetails.ts` in `/src/data` to reflect your brand and site info.
+3. **Modify content**: Files in `/src/data` handle data for navigation, features, pricing, testimonials, and more.
+4. **Replace favicon**: Add your icon to `/src/app/favicon.ico`.
+5. **Add images**: Update `public/images` for Open Graph metadata (e.g., `og-image.jpg`, `twitter-image.jpg`).
+
+---
+
+## Deploying on Vercel
+
+The fastest way to deploy Finwise is on [Vercel](https://vercel.com/). Simply click the "Deploy with Vercel" button at the top of this README, or check the [Next.js deployment docs](https://vercel.com/docs/deployments/deployment-methods) for other deployment options.
+
+---
+
+## Contributing
+
+Finwise is an open-source project, and we welcome contributions from the community! If you have ideas for new components, designs, layouts, or optimizations, please join us in making Finwise even better.
+
+### How to Contribute
+
+1. **Fork the Repository**: Clone it locally.
+2. **Create a New Branch**: For example, `feature/new-section` or `fix/style-issue`.
+3. **Develop and Test**: Make sure your changes work and don't break existing functionality.
+4. **Submit a Pull Request**: Open a pull request with a clear description of your changes, and we'll review it.
+
+### Ideas for Contributions
+
+- New component sections (team introductions, comparison table, case studies, etc.)
+- Additional page variants (e.g., agency, eCommerce, portfolio layouts)
+- Additional themes
+- Documentation updates, tutorials, or guides
+
+---
+
+## Community and Support
+
+Join our community discussions on GitHub to share ideas, ask questions, or suggest improvements. Let’s build something amazing together!
+
+
+--- 
+
+## License
+
+This project is open-source and available under the MIT License. Feel free to use, modify, and distribute it for personal or commercial projects.
