@@ -1,0 +1,82 @@
+<!doctype html>
+<!--
+  Shotsmith Pro 付款后的中转页，放在 public/ 下，地址是 /activate.html，不经过 BaseHub。
+  Lemon Squeezy 商品的「Redirect after purchase」设为：
+    https://<网站域名>/activate.html?key=[license_key]
+  页面打开后唤起 shotsmith://activate?key=…，App 自动激活；唤起失败时可以手动打开或复制密钥。
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<title>Activate Shotsmith Pro</title>
+<style>
+  :root {
+    --bg: #f5f5f7; --card: #fff; --text: #1d1d1f; --muted: #6e6e73; --border: rgba(0, 0, 0, 0.1);
+    --accent: #0a84ff; --field: rgba(0, 0, 0, 0.04);
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #1c1c1e; --card: #2c2c2e; --text: #f5f5f7; --muted: #a1a1a6; --border: rgba(255, 255, 255, 0.12); --field: rgba(255, 255, 255, 0.06); }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px 16px;
+    background: var(--bg); color: var(--text); font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  main { width: 100%; max-width: 440px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 32px 28px; text-align: center; }
+  h1 { font-size: 22px; margin: 0 0 6px; }
+  p { margin: 0 0 20px; color: var(--muted); }
+  .key {
+    font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; word-break: break-all; padding: 10px 12px;
+    background: var(--field); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 16px; user-select: all;
+  }
+  .buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  button, a.button {
+    font: inherit; font-weight: 500; padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--card); color: var(--text); cursor: pointer; text-decoration: none;
+  }
+  .primary { background: var(--accent); border-color: transparent; color: #fff; }
+  .note { font-size: 13px; margin: 20px 0 0; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Thanks for buying Shotsmith Pro!</h1>
+  <div id="withKey">
+    <p>Opening Shotsmith to activate your license…</p>
+    <div class="key" id="key"></div>
+    <div class="buttons">
+      <a class="button primary" id="open" href="#">Open Shotsmith</a>
+      <button type="button" id="copy">Copy License Key</button>
+    </div>
+    <p class="note">If Shotsmith doesn’t open, copy the key and paste it in Shotsmith Settings → License. It’s also in your receipt email.</p>
+  </div>
+  <div id="noKey" hidden>
+    <p>Your license key is in your receipt email. Paste it in Shotsmith Settings → License to activate.</p>
+  </div>
+</main>
+<script>
+  const key = (new URLSearchParams(location.search).get('key') || '').trim()
+  // 只接受密钥格式的字符，避免拼出别的链接
+  const valid = /^[0-9A-Za-z-]{8,64}$/.test(key)
+  if (valid) {
+    const url = 'shotsmith://activate?key=' + encodeURIComponent(key)
+    document.getElementById('key').textContent = key
+    document.getElementById('open').href = url
+    const copy = document.getElementById('copy')
+    copy.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(key); copy.textContent = 'Copied' } catch { copy.textContent = 'Select the key above to copy' }
+      setTimeout(() => { copy.textContent = 'Copy License Key' }, 1500)
+    })
+    location.href = url
+  } else {
+    document.getElementById('withKey').hidden = true
+    document.getElementById('noKey').hidden = false
+  }
+</script>
+</body>
+</html>
