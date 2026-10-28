@@ -18,6 +18,27 @@ export interface IBenefitBullet {
     icon: JSX.Element;
 }
 
+export type WorkflowColor = 'blue' | 'orange' | 'purple' | 'green';
+
+export interface IWorkflowPreset {
+    name: string;
+    shortcut: string;
+    color: WorkflowColor;
+    icon: JSX.Element;
+    /** 工作流里依次执行的步骤 */
+    chain: string[];
+    description: string;
+    videoSrc: string;
+    /** 视频加载前显示的封面图 */
+    posterSrc: string;
+}
+
+export interface IActionGroup {
+    name: string;
+    color: WorkflowColor;
+    actions: string[];
+}
+
 export interface IPricing {
     name: string;
     price: number | string;

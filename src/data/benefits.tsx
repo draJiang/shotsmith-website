@@ -1,4 +1,4 @@
-import { FiArrowUpRight, FiCode, FiCrop, FiEyeOff, FiLayers, FiMapPin, FiSearch, FiVideo, FiZap } from "react-icons/fi";
+import { FiArrowUpRight, FiCrop, FiLayers, FiMapPin, FiSearch, FiVideo } from "react-icons/fi";
 
 import { IBenefit } from "@/types"
 
@@ -47,27 +47,5 @@ export const benefits: IBenefit[] = [
         ],
         imageSrc: "/images/feature-pin.webp",
         videoSrc: "/images/feature-pin.mp4"
-    },
-    {
-        title: "Workflows: the step after the shot",
-        description: "Chain actions on a visual canvas and run them from the editor toolbar or with ⌘1–⌘9. Building is free; running workflows is part of Shotsmith Pro.",
-        bullets: [
-            {
-                title: "OCR, translation, LLMs and more",
-                description: "Recognize text, translate in place, ask a local or cloud LLM, call a webhook, or run a script.",
-                icon: <FiZap size={26} />
-            },
-            {
-                title: "Private by default",
-                description: "Recognition runs on device and data only goes to services you set up, including a local Ollama.",
-                icon: <FiEyeOff size={26} />
-            },
-            {
-                title: "Built for coding agents",
-                description: "The shotsmith command line tool lets Claude Code and other agents create and test workflows for you.",
-                icon: <FiCode size={26} />
-            }
-        ],
-        imageSrc: "/images/feature-workflow.webp"
     },
 ]
