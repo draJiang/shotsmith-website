@@ -1,4 +1,5 @@
 "use client"
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import clsx from "clsx";
 import { motion, useReducedMotion, Variants } from "framer-motion"
@@ -48,8 +49,16 @@ export const childVariants = {
 
 const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
     const { title, description, imageSrc, videoSrc, bullets } = benefit;
-    // 系统设置了减少动态效果时不自动播放，改为显示播放控件
+    // 系统设置了减少动态效果时不自动播放，改为显示播放控件。
+    // 预渲染的 HTML 带着 autoPlay，浏览器在页面脚本运行前就开始播放了，水合也不会改属性，所以在这里停下、加上控件
     const reduceMotion = useReducedMotion();
+    const videoRef = useRef<HTMLVideoElement>(null);
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video || !reduceMotion) return;
+        video.pause();
+        video.controls = true;
+    }, [reduceMotion]);
     const mediaClassName = "lg:ml-0 w-full max-w-[560px] h-auto rounded-[20px] shadow-xl shadow-black/5";
 
     return (
@@ -92,8 +101,8 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
                 <div className={clsx("mt-5 lg:mt-0", { "lg:order-2": imageAtRight })}>
                     <div className={clsx("w-fit flex", { "justify-start": imageAtRight, "justify-end": !imageAtRight })}>
                         {videoSrc ? (
-                            <video src={videoSrc} poster={imageSrc} width={560} height={480} aria-label={title}
-                                autoPlay={!reduceMotion} controls={!!reduceMotion} muted loop playsInline preload="metadata"
+                            <video ref={videoRef} src={videoSrc} poster={imageSrc} width={560} height={480} aria-label={title}
+                                autoPlay muted loop playsInline preload="metadata"
                                 className={mediaClassName} />
                         ) : (
                             <Image src={imageSrc} alt={title} width="560" height="480" unoptimized className={mediaClassName} />
