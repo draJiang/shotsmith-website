@@ -30,7 +30,7 @@ const Hero: React.FC = () => {
                 <Image
                     src={heroDetails.centerImageSrc}
                     width={1040}
-                    height={660}
+                    height={650}
                     priority={true}
                     unoptimized={true}
                     alt="The Shotsmith editor open on a captured billing page, with numbered steps, a box, an arrow, a text label, a mosaic over the email, and the floating toolbar"
