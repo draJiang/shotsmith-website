@@ -57,8 +57,9 @@ const Workflows: React.FC = () => {
         setSelected(index);
     };
 
+    // 宽度与功能区一行的宽度一致（文字 512 + 间距 80 + 配图 560），标题才和上面各段的文字左边缘对齐
     return (
-        <section id="workflows" className="mb-24">
+        <section id="workflows" className="mb-24 mx-auto w-full max-w-[1152px]">
             <motion.div
                 className="max-w-3xl text-center lg:text-left"
                 initial={{ opacity: 0, y: 60 }}
