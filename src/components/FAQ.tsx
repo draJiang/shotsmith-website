@@ -9,7 +9,8 @@ import { siteDetails } from "@/data/siteDetails";
 const FAQ: React.FC = () => {
     return (
         <section id="faq" className="py-10 lg:py-20">
-            <div className="flex flex-col lg:flex-row gap-10">
+            {/* 宽度与功能区一行一致（文字 512 + 间距 80 + 配图 560），左右边缘才和其他 section 对齐 */}
+            <div className="mx-auto w-full max-w-[1152px] flex flex-col lg:flex-row gap-10">
                 <div className="">
                     <p className="hidden lg:block text-foreground-accent">FAQ&apos;S</p>
                     <SectionTitle>
@@ -25,7 +26,7 @@ const FAQ: React.FC = () => {
                     )}
                 </div>
 
-                <div className="w-full lg:max-w-2xl mx-auto border-b">
+                <div className="w-full lg:max-w-2xl lg:ml-auto border-b">
                     {faqs.map((faq, index) => (
                         <div key={index} className="mb-7">
                             <Disclosure>
