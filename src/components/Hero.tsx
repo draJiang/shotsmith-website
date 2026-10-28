@@ -33,7 +33,7 @@ const Hero: React.FC = () => {
                     height={660}
                     priority={true}
                     unoptimized={true}
-                    alt="The Shotsmith editor annotating a screenshot, with its floating toolbar"
+                    alt="The Shotsmith editor open on a captured billing page, with numbered steps, a box, an arrow, a text label, a mosaic over the email, and the floating toolbar"
                     className='relative mt-12 md:mt-16 mx-auto z-10 w-full max-w-5xl h-auto'
                 />
             </div>

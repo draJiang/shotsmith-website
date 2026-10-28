@@ -23,7 +23,7 @@ export const benefits: IBenefit[] = [
                 icon: <FiLayers size={26} />
             }
         ],
-        imageSrc: "/images/feature-capture.svg"
+        imageSrc: "/images/feature-capture.webp"
     },
     {
         title: "Keep it in view, find it later",
@@ -45,7 +45,7 @@ export const benefits: IBenefit[] = [
                 icon: <FiSearch size={26} />
             }
         ],
-        imageSrc: "/images/feature-pin.svg"
+        imageSrc: "/images/feature-pin.webp"
     },
     {
         title: "Workflows: the step after the shot",
@@ -67,6 +67,6 @@ export const benefits: IBenefit[] = [
                 icon: <FiCode size={26} />
             }
         ],
-        imageSrc: "/images/feature-workflow.svg"
+        imageSrc: "/images/feature-workflow.webp"
     },
 ]
