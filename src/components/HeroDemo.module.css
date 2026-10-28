@@ -1,0 +1,84 @@
+/* 动作卡片照搬 App 工作流编辑器（WorkflowEditorWeb/src/styles.css）的浅色样式，--accent 用 macOS 默认的蓝 */
+.canvas {
+  --accent: #0a84ff;
+  --accent-soft: color-mix(in srgb, var(--accent) 14%, transparent);
+  --image: #8b5cf6;
+  --text-port: #10b39a;
+  --node: #ffffff;
+  --text: rgba(0, 0, 0, 0.86);
+  --muted: rgba(0, 0, 0, 0.5);
+  --faint: rgba(0, 0, 0, 0.3);
+  --border: rgba(0, 0, 0, 0.1);
+  --border-strong: rgba(0, 0, 0, 0.16);
+  --hover: rgba(0, 0, 0, 0.05);
+  --field: rgba(0, 0, 0, 0.035);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.05);
+  --green: #28a745;
+  position: relative;
+  font: 13px/1.4 -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", sans-serif;
+  color: var(--text);
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+  /* 画布的点阵背景：与编辑器里 React Flow 的 Dots 一致（间距 18） */
+  background-color: #f4f4f6;
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.13) 0.9px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+.row { position: relative; display: flex; align-items: flex-start; justify-content: center; gap: 56px; }
+
+.edges { position: absolute; inset: 0; overflow: visible; pointer-events: none; z-index: 0; }
+.edges path { fill: none; stroke: var(--image); stroke-width: 2; }
+.edges path.running { stroke-dasharray: 5; animation: dashdraw 0.5s linear infinite; }
+@keyframes dashdraw { from { stroke-dashoffset: 10; } }
+
+.node {
+  position: relative; z-index: 1; flex: none;
+  width: 228px; background: var(--node); border: 1px solid var(--border-strong); border-radius: 11px;
+  box-shadow: var(--shadow); transition: box-shadow 0.15s, border-color 0.15s;
+}
+.node.selected { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow); }
+.node.running { border-color: var(--accent); }
+.header { display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 10px; border-bottom: 1px solid var(--border); }
+.icon {
+  width: 22px; height: 22px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; flex: none;
+  color: var(--cat); background: color-mix(in srgb, var(--cat) 15%, transparent);
+}
+.trigger { --cat: #8e8e93; }
+.recognize { --cat: #22a55b; }
+.web { --cat: #3b82f6; }
+.output { --cat: #f08c00; }
+.advanced { --cat: #d946ef; }
+.title { flex: 1; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.status { display: flex; color: var(--muted); }
+.running .status { color: var(--accent); }
+.succeeded .status { color: var(--green); }
+.triggerTag { font-size: 10px; padding: 1px 6px; border-radius: 4px; background: var(--hover); color: var(--muted); }
+.ports { padding: 5px 0; }
+.port { position: relative; display: flex; align-items: center; gap: 6px; height: 24px; padding: 0 14px; color: var(--muted); font-size: 12px; }
+.port.out { justify-content: flex-end; }
+.optional { font-size: 10px; color: var(--faint); }
+.handle {
+  position: absolute; top: 50%; width: 11px; height: 11px; border: 2px solid var(--node); border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.in .handle { left: 0; }
+.out .handle { left: 100%; }
+.handle.image { background: var(--image); }
+.handle.text { background: var(--text-port); }
+.handle.unconnected { background: var(--node); box-shadow: inset 0 0 0 2px var(--faint); }
+.summary { padding: 0 12px 8px; font-size: 11px; color: var(--faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.preview { margin: 0 8px 8px; padding: 6px 8px; border-radius: 6px; background: var(--field); font-size: 11px; color: var(--muted); }
+
+/* 说明文字换了时淡入；加进工作流的卡片弹出 */
+.fadeIn { animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } }
+.popIn { animation: popIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+@keyframes popIn { from { opacity: 0; transform: scale(0.9); } }
+
+.spin { animation: spin 0.9s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .spin, .edges path.running, .fadeIn, .popIn { animation: none; }
+}

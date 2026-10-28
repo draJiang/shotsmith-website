@@ -1,7 +1,7 @@
 import React from 'react';
-import Image from 'next/image';
 
 import { BuyButton, DownloadButton } from './ActionButtons';
+import HeroDemo from './HeroDemo';
 import { heroDetails } from '@/data/hero';
 import { siteDetails } from '@/data/siteDetails';
 
@@ -27,15 +27,7 @@ const Hero: React.FC = () => {
                     <BuyButton />
                 </div>
                 <p className="mt-4 text-sm text-foreground-accent">Free to use · {siteDetails.minimumSystem}</p>
-                <Image
-                    src={heroDetails.centerImageSrc}
-                    width={1040}
-                    height={650}
-                    priority={true}
-                    unoptimized={true}
-                    alt="The Shotsmith editor open on a captured billing page, with numbered steps, a box, an arrow, a text label, a mosaic over the email, and the floating toolbar"
-                    className='relative mt-12 md:mt-16 mx-auto z-10 w-full max-w-5xl h-auto'
-                />
+                <HeroDemo />
             </div>
         </section>
     );

@@ -1,0 +1,261 @@
+{
+  "captions" : [
+    {
+      "text" : "Capture a product photo",
+      "time" : 0
+    },
+    {
+      "text" : "⌘5 runs your workflow",
+      "time" : 2.7
+    },
+    {
+      "text" : "Add a step: pad it to a white square",
+      "time" : 5
+    },
+    {
+      "text" : "Same shortcut, new result",
+      "time" : 10.1
+    }
+  ],
+  "duration" : 14.5,
+  "edges" : [
+    {
+      "source" : "trigger",
+      "sourcePort" : "image",
+      "target" : "cutout",
+      "targetPort" : "image",
+      "type" : "image"
+    },
+    {
+      "source" : "cutout",
+      "sourcePort" : "image",
+      "target" : "copy",
+      "targetPort" : "image",
+      "type" : "image",
+      "until" : 5.4
+    },
+    {
+      "from" : 5.4,
+      "source" : "cutout",
+      "sourcePort" : "image",
+      "target" : "shell",
+      "targetPort" : "image",
+      "type" : "image"
+    },
+    {
+      "from" : 5.4,
+      "source" : "shell",
+      "sourcePort" : "image",
+      "target" : "copy",
+      "targetPort" : "image",
+      "type" : "image"
+    }
+  ],
+  "events" : [
+    {
+      "node" : "trigger",
+      "preview" : "Image 824 × 624",
+      "status" : "succeeded",
+      "time" : 2.7
+    },
+    {
+      "node" : "cutout",
+      "status" : "running",
+      "time" : 2.7
+    },
+    {
+      "node" : "cutout",
+      "preview" : "Image 432 × 304",
+      "status" : "succeeded",
+      "time" : 3.2
+    },
+    {
+      "node" : "copy",
+      "status" : "running",
+      "time" : 3.2
+    },
+    {
+      "node" : "copy",
+      "status" : "succeeded",
+      "time" : 3.3
+    },
+    {
+      "node" : "trigger",
+      "status" : "idle",
+      "time" : 5
+    },
+    {
+      "node" : "cutout",
+      "status" : "idle",
+      "time" : 5
+    },
+    {
+      "node" : "copy",
+      "status" : "idle",
+      "time" : 5
+    },
+    {
+      "node" : "trigger",
+      "preview" : "Image 824 × 624",
+      "status" : "succeeded",
+      "time" : 10.1
+    },
+    {
+      "node" : "cutout",
+      "status" : "running",
+      "time" : 10.1
+    },
+    {
+      "node" : "cutout",
+      "preview" : "Image 432 × 304",
+      "status" : "succeeded",
+      "time" : 10.6
+    },
+    {
+      "node" : "shell",
+      "status" : "running",
+      "time" : 10.6
+    },
+    {
+      "node" : "shell",
+      "preview" : "Image 1080 × 1080",
+      "status" : "succeeded",
+      "time" : 11.3
+    },
+    {
+      "node" : "copy",
+      "status" : "running",
+      "time" : 11.3
+    },
+    {
+      "node" : "copy",
+      "status" : "succeeded",
+      "time" : 11.4
+    }
+  ],
+  "nodes" : [
+    {
+      "category" : "trigger",
+      "icon" : "camera",
+      "id" : "trigger",
+      "inputs" : [
+
+      ],
+      "isTrigger" : true,
+      "outputs" : [
+        {
+          "id" : "image",
+          "isOptional" : false,
+          "title" : "Image",
+          "type" : "image"
+        },
+        {
+          "id" : "filePath",
+          "isOptional" : false,
+          "title" : "File Path",
+          "type" : "text"
+        },
+        {
+          "id" : "text",
+          "isOptional" : false,
+          "title" : "Text",
+          "type" : "text"
+        }
+      ],
+      "summary" : "",
+      "title" : "Screenshot",
+      "type" : "trigger.screenshot"
+    },
+    {
+      "category" : "recognize",
+      "icon" : "scissors",
+      "id" : "cutout",
+      "inputs" : [
+        {
+          "id" : "image",
+          "isOptional" : false,
+          "title" : "Image",
+          "type" : "image"
+        }
+      ],
+      "isTrigger" : false,
+      "outputs" : [
+        {
+          "id" : "image",
+          "isOptional" : false,
+          "title" : "Image",
+          "type" : "image"
+        }
+      ],
+      "summary" : "Cropped to subject",
+      "title" : "Remove Background",
+      "type" : "removeBackground"
+    },
+    {
+      "addedAt" : 5.4,
+      "category" : "advanced",
+      "icon" : "terminal",
+      "id" : "shell",
+      "inputs" : [
+        {
+          "id" : "text",
+          "isOptional" : true,
+          "title" : "Text",
+          "type" : "text"
+        },
+        {
+          "id" : "image",
+          "isOptional" : true,
+          "title" : "Image",
+          "type" : "image"
+        }
+      ],
+      "isTrigger" : false,
+      "outputs" : [
+        {
+          "id" : "text",
+          "isOptional" : false,
+          "title" : "Output",
+          "type" : "text"
+        },
+        {
+          "id" : "image",
+          "isOptional" : false,
+          "title" : "Image",
+          "type" : "image"
+        }
+      ],
+      "summary" : "sips -Z 820 -s format jpeg -p 1080 1080 --padColor FFFFFF \"$SHOTSMITH_IMAGE\" --out \"$SHOTSMITH_OUTPUT_IMAGE\"",
+      "title" : "Run Shell Script",
+      "type" : "shell"
+    },
+    {
+      "category" : "output",
+      "icon" : "clipboard",
+      "id" : "copy",
+      "inputs" : [
+        {
+          "id" : "text",
+          "isOptional" : true,
+          "title" : "Text",
+          "type" : "text"
+        },
+        {
+          "id" : "image",
+          "isOptional" : true,
+          "title" : "Image",
+          "type" : "image"
+        }
+      ],
+      "isTrigger" : false,
+      "outputs" : [
+
+      ],
+      "summary" : "",
+      "title" : "Copy to Clipboard",
+      "type" : "copy"
+    }
+  ],
+  "shortcut" : "⌘5",
+  "workflow" : "Product Shot"
+}
