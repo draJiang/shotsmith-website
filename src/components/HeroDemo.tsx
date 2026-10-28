@@ -136,6 +136,13 @@ const HeroDemo: React.FC = () => {
     const rowStart = (CANVAS_WIDTH - PADDING * 2 - (visibleCount * NODE_WIDTH + (visibleCount - 1) * GAP)) / 2;
 
     return (
+        <>
+        {/* Hero 的灰底到流程区正中为止：从这里往下是白底，流程区一半压在灰底上、一半落在白底上。
+            相对 Hero 的 section 定位（section 的底边就是卡片的底边），盖在灰底上、垫在卡片后面 */}
+        <div aria-hidden className="absolute inset-x-0 bottom-0 z-0 bg-white" style={{ height: (ROW_HEIGHT + 64) * scale / 2 }} />
+        {/* 灰底在分界线处收尾的那条渐变 */}
+        <div aria-hidden className="absolute inset-x-0 z-0 h-40 backdrop-blur-[2px] bg-gradient-to-b from-transparent via-[rgba(244,244,246,0.5)] to-[rgba(222,223,230,0.6)]"
+            style={{ bottom: (ROW_HEIGHT + 64) * scale / 2 }} />
         <div className="relative mt-12 md:mt-16 mx-auto z-10 w-full max-w-5xl overflow-hidden rounded-[20px] bg-white shadow-xl shadow-black/10 ring-1 ring-black/5">
             <video
                 ref={videoRef}
@@ -179,6 +186,7 @@ const HeroDemo: React.FC = () => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 
