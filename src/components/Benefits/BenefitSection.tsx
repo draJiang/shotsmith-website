@@ -6,6 +6,7 @@ import { motion, useReducedMotion, Variants } from "framer-motion"
 
 import BenefitBullet from "./BenefitBullet";
 import SectionTitle from "../SectionTitle";
+import { useInView } from "@/hooks/useInView";
 import { IBenefit } from "@/types";
 
 interface Props {
@@ -49,16 +50,21 @@ export const childVariants = {
 
 const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
     const { title, description, imageSrc, videoSrc, bullets } = benefit;
-    // 系统设置了减少动态效果时不自动播放，改为显示播放控件。
-    // 预渲染的 HTML 带着 autoPlay，浏览器在页面脚本运行前就开始播放了，水合也不会改属性，所以在这里停下、加上控件
+    // 视频进入可视范围时循环播放，离开后暂停。
+    // 系统设置了减少动态效果时不自动播放，改为显示播放控件
     const reduceMotion = useReducedMotion();
     const videoRef = useRef<HTMLVideoElement>(null);
+    const inView = useInView(videoRef);
     useEffect(() => {
         const video = videoRef.current;
-        if (!video || !reduceMotion) return;
-        video.pause();
-        video.controls = true;
-    }, [reduceMotion]);
+        if (!video) return;
+        if (reduceMotion) {
+            video.controls = true;
+            return;
+        }
+        if (inView) video.play().catch(() => {});
+        else video.pause();
+    }, [reduceMotion, inView]);
     const mediaClassName = "lg:ml-0 w-full max-w-[560px] h-auto rounded-[20px] shadow-xl shadow-black/5";
 
     return (
@@ -102,7 +108,7 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
                     <div className={clsx("w-fit flex", { "justify-start": imageAtRight, "justify-end": !imageAtRight })}>
                         {videoSrc ? (
                             <video ref={videoRef} src={videoSrc} poster={imageSrc} width={560} height={480} aria-label={title}
-                                autoPlay muted loop playsInline preload="metadata"
+                                muted loop playsInline preload="auto"
                                 className={mediaClassName} />
                         ) : (
                             <Image src={imageSrc} alt={title} width="560" height="480" unoptimized className={mediaClassName} />

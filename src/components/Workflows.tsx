@@ -6,6 +6,7 @@ import { LuArrowRight } from "react-icons/lu";
 
 import SectionTitle from "./SectionTitle";
 import { actionGroups, workflowPresets, workflowsSection } from "@/data/workflows";
+import { useInView } from "@/hooks/useInView";
 import { WorkflowColor } from "@/types";
 
 // 与 App 里工作流图标、动作分组的配色一致
@@ -26,21 +27,40 @@ const chipColors: Record<WorkflowColor, string> = {
 const Workflows: React.FC = () => {
     const [selected, setSelected] = useState(0);
     const preset = workflowPresets[selected];
-    // 系统设置了减少动态效果时不自动播放，改为显示播放控件。
-    // 预渲染的 HTML 带着 autoPlay，浏览器在页面脚本运行前就开始播放了，水合也不会改属性，所以在这里停下、加上控件
+    // 四个视频都挂在页面上，切换时只显示选中的那个，这样轮到下一个时不用等加载。
+    // 视频进入可视范围后开始播放，播完一个自动切到下一个，离开可视范围就暂停。
+    // 系统设置了减少动态效果时不自动播放也不轮换，改为显示播放控件
     const reduceMotion = useReducedMotion();
-    const videoRef = useRef<HTMLVideoElement>(null);
+    const stageRef = useRef<HTMLDivElement>(null);
+    const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+    const inView = useInView(stageRef);
+
     useEffect(() => {
-        const video = videoRef.current;
-        if (!video || !reduceMotion) return;
-        video.pause();
-        video.controls = true;
-    }, [reduceMotion, selected]);
+        videoRefs.current.forEach((video, index) => {
+            if (!video) return;
+            if (reduceMotion) {
+                video.controls = true;
+                return;
+            }
+            if (index === selected && inView) video.play().catch(() => {});
+            else video.pause();
+        });
+    }, [reduceMotion, selected, inView]);
+
+    const select = (index: number) => {
+        const video = videoRefs.current[index];
+        if (video) {
+            video.currentTime = 0;
+            // 点的是已选中的项时 selected 没变，effect 不会重跑，所以直接播放
+            if (!reduceMotion) video.play().catch(() => {});
+        }
+        setSelected(index);
+    };
 
     return (
         <section id="workflows" className="mb-24">
             <motion.div
-                className="max-w-3xl mx-auto text-center"
+                className="max-w-3xl text-center lg:text-left"
                 initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -59,7 +79,7 @@ const Workflows: React.FC = () => {
                             key={item.name}
                             role="tab"
                             aria-selected={index === selected}
-                            onClick={() => setSelected(index)}
+                            onClick={() => select(index)}
                             className={clsx(
                                 "flex items-center gap-3 rounded-xl px-3 py-2.5 text-left text-base transition-colors",
                                 index === selected ? "bg-hero-background text-foreground font-semibold" : "text-foreground-accent hover:bg-hero-background/60"
@@ -75,17 +95,28 @@ const Workflows: React.FC = () => {
                 </div>
 
                 <div>
-                    <video
-                        key={preset.videoSrc}
-                        ref={videoRef}
-                        src={preset.videoSrc}
-                        poster={preset.posterSrc}
-                        width={960}
-                        height={660}
-                        aria-label={`${preset.name}: ${preset.description}`}
-                        autoPlay muted loop playsInline preload="metadata"
-                        className="w-full h-auto rounded-[20px] shadow-xl shadow-black/5 bg-hero-background"
-                    />
+                    <div ref={stageRef} className="relative aspect-[960/660] w-full">
+                        {workflowPresets.map((item, index) => (
+                            <video
+                                key={item.videoSrc}
+                                ref={el => { videoRefs.current[index] = el }}
+                                src={item.videoSrc}
+                                poster={item.posterSrc}
+                                width={960}
+                                height={660}
+                                aria-label={`${item.name}: ${item.description}`}
+                                aria-hidden={index !== selected}
+                                muted playsInline preload="auto"
+                                onEnded={() => {
+                                    if (!reduceMotion) select((index + 1) % workflowPresets.length);
+                                }}
+                                className={clsx(
+                                    "absolute inset-0 h-full w-full rounded-[20px] shadow-xl shadow-black/5 bg-hero-background",
+                                    index !== selected && "invisible"
+                                )}
+                            />
+                        ))}
+                    </div>
                     <div className="mt-5 flex flex-wrap items-center gap-2">
                         {preset.chain.map((step, index) => (
                             <span key={step} className="flex items-center gap-2">
