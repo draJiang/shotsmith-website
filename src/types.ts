@@ -7,6 +7,8 @@ export interface IBenefit {
     title: string;
     description: string;
     imageSrc: string;
+    /** 有视频时显示视频（静音循环播放），imageSrc 作为加载前的封面图 */
+    videoSrc?: string;
     bullets: IBenefitBullet[]
 }
 

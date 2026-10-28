@@ -45,7 +45,8 @@ export const benefits: IBenefit[] = [
                 icon: <FiSearch size={26} />
             }
         ],
-        imageSrc: "/images/feature-pin.webp"
+        imageSrc: "/images/feature-pin.webp",
+        videoSrc: "/images/feature-pin.mp4"
     },
     {
         title: "Workflows: the step after the shot",

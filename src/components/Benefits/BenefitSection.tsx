@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 import clsx from "clsx";
-import { motion, Variants } from "framer-motion"
+import { motion, useReducedMotion, Variants } from "framer-motion"
 
 import BenefitBullet from "./BenefitBullet";
 import SectionTitle from "../SectionTitle";
@@ -47,7 +47,10 @@ export const childVariants = {
 };
 
 const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
-    const { title, description, imageSrc, bullets } = benefit;
+    const { title, description, imageSrc, videoSrc, bullets } = benefit;
+    // 系统设置了减少动态效果时不自动播放，改为显示播放控件
+    const reduceMotion = useReducedMotion();
+    const mediaClassName = "lg:ml-0 w-full max-w-[560px] h-auto rounded-[20px] shadow-xl shadow-black/5";
 
     return (
         <section className="benefit-section">
@@ -88,7 +91,13 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
 
                 <div className={clsx("mt-5 lg:mt-0", { "lg:order-2": imageAtRight })}>
                     <div className={clsx("w-fit flex", { "justify-start": imageAtRight, "justify-end": !imageAtRight })}>
-                        <Image src={imageSrc} alt={title} width="560" height="480" unoptimized className="lg:ml-0 w-full max-w-[560px] h-auto rounded-[20px] shadow-xl shadow-black/5" />
+                        {videoSrc ? (
+                            <video src={videoSrc} poster={imageSrc} width={560} height={480} aria-label={title}
+                                autoPlay={!reduceMotion} controls={!!reduceMotion} muted loop playsInline preload="metadata"
+                                className={mediaClassName} />
+                        ) : (
+                            <Image src={imageSrc} alt={title} width="560" height="480" unoptimized className={mediaClassName} />
+                        )}
                     </div>
                 </div>
             </motion.div>
