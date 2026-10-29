@@ -8,6 +8,7 @@ import Container from './Container';
 import Logo from './Logo';
 import { siteDetails } from '@/data/siteDetails';
 import { menuItems } from '@/data/menuItems';
+import { events, track } from '@/lib/analytics';
 
 const Header: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -38,7 +39,11 @@ const Header: React.FC = () => {
                             </li>
                         ))}
                         <li>
-                            <Link href="#pricing" className="text-white bg-primary hover:bg-primary-accent px-8 py-3 rounded-full transition-colors">
+                            <Link
+                                href="#pricing"
+                                className="text-white bg-primary hover:bg-primary-accent px-8 py-3 rounded-full transition-colors"
+                                onClick={() => track(events.navGetButtonClick, { device_type: 'desktop' })}
+                            >
                                 Get Shotsmith
                             </Link>
                         </li>
@@ -84,7 +89,7 @@ const Header: React.FC = () => {
                             </li>
                         ))}
                         <li>
-                            <Link href="#pricing" className="text-white bg-primary hover:bg-primary-accent px-5 py-2 rounded-full block w-fit" onClick={toggleMenu}>
+                            <Link href="#pricing" className="text-white bg-primary hover:bg-primary-accent px-5 py-2 rounded-full block w-fit" onClick={() => { track(events.navGetButtonClick, { device_type: 'mobile' }); toggleMenu(); }}>
                                 Get Shotsmith
                             </Link>
                         </li>

@@ -22,7 +22,7 @@ const PricingColumn: React.FC<Props> = ({ tier }: Props) => {
                     </span>
                     {priceNote && <span className="text-lg font-normal text-gray-600"> {priceNote}</span>}
                 </p>
-                {cta === 'buy' ? <BuyButton className="w-full" label="Buy Shotsmith Pro" /> : <DownloadButton className="w-full" />}
+                {cta === 'buy' ? <BuyButton className="w-full" location="pricing" label="Buy Shotsmith Pro" /> : <DownloadButton className="w-full" location="pricing" />}
             </div>
             <div className="p-6 mt-1">
                 <p className="font-bold mb-5">{featuresHeading}</p>

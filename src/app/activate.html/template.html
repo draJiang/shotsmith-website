@@ -1,6 +1,7 @@
 <!doctype html>
 <!--
-  Shotsmith Pro 付款后的中转页，放在 public/ 下，地址是 /activate.html，不经过 Next.js 页面。
+  Shotsmith Pro 付款后的中转页，地址是 /activate.html。由同目录的 route.ts 在构建时读取本文件，
+  把下面脚本里的 PostHog 占位符换成环境变量的值后原样输出，页面本身不经过 React 布局。
   Lemon Squeezy 商品的「Redirect after purchase」设为：
     https://<网站域名>/activate.html?key=[license_key]
   页面打开后唤起 shotsmith://activate?key=…，App 自动激活；唤起失败时可以手动打开或复制密钥。
@@ -60,10 +61,43 @@
   </div>
 </main>
 <script>
+  // PostHog：只在带密钥（即付款后跳转过来）时上报 purchase_flow:activate_page_view。
+  // key 和地址来自 NEXT_PUBLIC_POSTHOG_KEY / NEXT_PUBLIC_POSTHOG_HOST，没配置时是空串，不加载 PostHog
+  const PH_KEY = '__POSTHOG_KEY__'
+  const PH_HOST = '__POSTHOG_HOST__'
+  if (PH_KEY.startsWith('phc_')) {
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    // 沿用主站访客的匿名 ID（同域名下 posthog-js 存在 localStorage），这样能把「访问→付款」串起来
+    let distinctId
+    try { distinctId = JSON.parse(localStorage.getItem('ph_' + PH_KEY + '_posthog') || '{}').distinct_id } catch {}
+    // 这个页面的地址带着 license key，不能让它进 PostHog 或被写进 posthog-js 的本地存储：
+    // 持久化只放内存，关掉自动采集和会话录制，并把所有属性里的 key 参数去掉
+    const scrub = (value) => {
+      if (typeof value === 'string') return value.replace(/([?&])key=[^&#]*&?/g, '$1').replace(/[?&]$/, '')
+      if (value && typeof value === 'object') {
+        for (const k of Object.keys(value)) value[k] = scrub(value[k])
+      }
+      return value
+    }
+    posthog.init(PH_KEY, {
+      api_host: PH_HOST,
+      person_profiles: 'identified_only',
+      persistence: 'memory',
+      bootstrap: distinctId ? { distinctID: distinctId } : undefined,
+      autocapture: false,
+      capture_pageview: false,
+      disable_session_recording: true,
+      advanced_disable_flags: true,
+      before_send: (event) => (event ? scrub(event) : event),
+    })
+  }
+</script>
+<script>
   const key = (new URLSearchParams(location.search).get('key') || '').trim()
   // 只接受密钥格式的字符，避免拼出别的链接
   const valid = /^[0-9A-Za-z-]{8,64}$/.test(key)
   if (valid) {
+    if (window.posthog && posthog.capture) posthog.capture('purchase_flow:activate_page_view')
     const url = 'shotsmith://activate?key=' + encodeURIComponent(key)
     document.getElementById('key').textContent = key
     document.getElementById('open').href = url

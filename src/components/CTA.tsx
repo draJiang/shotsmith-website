@@ -17,8 +17,8 @@ const CTA: React.FC = () => {
                         <p className="mx-auto max-w-xl md:px-5 text-white/75">{ctaDetails.subheading}</p>
 
                         <div className="mt-8 flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
-                            <DownloadButton dark />
-                            <BuyButton dark />
+                            <DownloadButton dark location="cta" />
+                            <BuyButton dark location="cta" />
                         </div>
                     </div>
                 </div>

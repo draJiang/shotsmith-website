@@ -5,6 +5,7 @@ import { siteDetails } from '@/data/siteDetails';
 import { footerDetails } from '@/data/footer';
 import { getPlatformIconByName } from '@/utils';
 import Logo from './Logo';
+import TrackedLink from './TrackedLink';
 
 const Footer: React.FC = () => {
     return (
@@ -26,7 +27,9 @@ const Footer: React.FC = () => {
                     <ul className="text-foreground-accent">
                         {footerDetails.quickLinks.map(link => (
                             <li key={link.text} className="mb-2">
-                                <Link href={link.url} className="hover:text-foreground">{link.text}</Link>
+                                {link.event
+                                    ? <TrackedLink href={link.url} event={link.event} className="hover:text-foreground">{link.text}</TrackedLink>
+                                    : <Link href={link.url} className="hover:text-foreground">{link.text}</Link>}
                             </li>
                         ))}
                     </ul>

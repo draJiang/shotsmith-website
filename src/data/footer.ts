@@ -1,5 +1,6 @@
 import { IMenuItem, ISocials } from "@/types";
 import { siteDetails } from "./siteDetails";
+import { events } from "@/lib/analytics";
 
 export const footerDetails: {
     subheading: string;
@@ -23,7 +24,8 @@ export const footerDetails: {
         },
         {
             text: "Find Your License Key",
-            url: siteDetails.ordersUrl
+            url: siteDetails.ordersUrl,
+            event: events.ordersLinkClick
         }
     ],
     email: siteDetails.supportEmail,

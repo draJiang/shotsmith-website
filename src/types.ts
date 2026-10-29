@@ -1,6 +1,8 @@
 export interface IMenuItem {
     text: string;
     url: string;
+    /** 设置后，点击该链接时上报这个事件 */
+    event?: string;
 }
 
 export interface IBenefit {

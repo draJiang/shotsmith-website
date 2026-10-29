@@ -20,7 +20,7 @@ const Hero: React.FC = () => {
                 <h1 className="text-4xl md:text-6xl md:leading-tight font-bold text-foreground max-w-lg md:max-w-3xl mx-auto text-balance">{heroDetails.heading}</h1>
                 <p className="mt-4 text-foreground-accent max-w-xl mx-auto">{heroDetails.subheading}</p>
                 <div className="mt-8 flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-fit mx-auto">
-                    <DownloadButton />
+                    <DownloadButton location="hero" />
                 </div>
                 <p className="mt-4 text-sm text-foreground-accent">Free to use · {siteDetails.minimumSystem}</p>
                 <HeroDemo />
