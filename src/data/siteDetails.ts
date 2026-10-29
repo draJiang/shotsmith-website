@@ -11,8 +11,9 @@ export const siteDetails = {
     },
     language: 'en-us',
     locale: 'en-US',
-    // Mac App 的下载地址；为空时下载按钮显示“Coming soon”
-    downloadUrl: '',
+    // Mac App 的下载地址；为空时下载按钮显示“Coming soon”。
+    // /download 在 next.config.mjs 里跳到 GitHub 最新 Release 的 DMG，发新版不用改这里
+    downloadUrl: '/download',
     // Lemon Squeezy 正式商品的结账页，付款后跳到 /activate.html 自动激活
     checkoutUrl: 'https://jiang.lemonsqueezy.com/checkout/buy/be2ad7d4-f8b3-4ccb-a616-3bbf7e0a33f1',
     // 顾客查看订单和密钥
