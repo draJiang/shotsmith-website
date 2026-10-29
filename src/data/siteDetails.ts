@@ -13,8 +13,8 @@ export const siteDetails = {
     locale: 'en-US',
     // Mac App 的下载地址；为空时下载按钮显示“Coming soon”
     downloadUrl: '',
-    // Lemon Squeezy 结账页，付款后跳到 /activate.html 自动激活。目前是测试模式商品的链接，上线前换成正式的
-    checkoutUrl: 'https://jiang.lemonsqueezy.com/checkout/buy/7fb65c57-3579-4e66-9de7-8fa95836a44b',
+    // Lemon Squeezy 正式商品的结账页，付款后跳到 /activate.html 自动激活
+    checkoutUrl: 'https://jiang.lemonsqueezy.com/checkout/buy/be2ad7d4-f8b3-4ccb-a616-3bbf7e0a33f1',
     // 顾客查看订单和密钥
     ordersUrl: 'https://app.lemonsqueezy.com/my-orders',
     // 支持邮箱；为空时不显示
