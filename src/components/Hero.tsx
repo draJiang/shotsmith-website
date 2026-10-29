@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BuyButton, DownloadButton } from './ActionButtons';
+import { DownloadButton } from './ActionButtons';
 import HeroDemo from './HeroDemo';
 import { heroDetails } from '@/data/hero';
 import { siteDetails } from '@/data/siteDetails';
@@ -21,7 +21,6 @@ const Hero: React.FC = () => {
                 <p className="mt-4 text-foreground-accent max-w-xl mx-auto">{heroDetails.subheading}</p>
                 <div className="mt-8 flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-fit mx-auto">
                     <DownloadButton />
-                    <BuyButton />
                 </div>
                 <p className="mt-4 text-sm text-foreground-accent">Free to use · {siteDetails.minimumSystem}</p>
                 <HeroDemo />
