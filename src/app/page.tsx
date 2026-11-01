@@ -5,10 +5,23 @@ import Benefits from "@/components/Benefits/Benefits";
 import Container from "@/components/Container";
 import Section from "@/components/Section";
 import CTA from "@/components/CTA";
+import { siteDetails } from "@/data/siteDetails";
+
+const softwareApplication = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: siteDetails.siteName,
+  url: siteDetails.siteUrl,
+  description: siteDetails.metadata.description,
+  image: new URL("/images/app-icon.png", siteDetails.siteUrl).toString(),
+  applicationCategory: "UtilitiesApplication",
+  operatingSystem: "macOS 14 or later",
+};
 
 const HomePage: React.FC = () => {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplication).replace(/</g, "\\u003c") }} />
       <Hero />
       <Container>
         <div className="pt-24 lg:pt-32">

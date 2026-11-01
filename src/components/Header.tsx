@@ -40,7 +40,7 @@ const Header: React.FC = () => {
                         ))}
                         <li>
                             <Link
-                                href="#pricing"
+                                href="/#pricing"
                                 className="text-white bg-primary hover:bg-primary-accent px-8 py-3 rounded-full transition-colors"
                                 onClick={() => track(events.navGetButtonClick, { device_type: 'desktop' })}
                             >
@@ -89,7 +89,7 @@ const Header: React.FC = () => {
                             </li>
                         ))}
                         <li>
-                            <Link href="#pricing" className="text-white bg-primary hover:bg-primary-accent px-5 py-2 rounded-full block w-fit" onClick={() => { track(events.navGetButtonClick, { device_type: 'mobile' }); toggleMenu(); }}>
+                            <Link href="/#pricing" className="text-white bg-primary hover:bg-primary-accent px-5 py-2 rounded-full block w-fit" onClick={() => { track(events.navGetButtonClick, { device_type: 'mobile' }); toggleMenu(); }}>
                                 Get Shotsmith
                             </Link>
                         </li>

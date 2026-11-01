@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteDetails.siteUrl),
   title: siteDetails.metadata.title,
   description: siteDetails.metadata.description,
+  alternates: { canonical: '/' },
   openGraph: {
     title: siteDetails.metadata.title,
     description: siteDetails.metadata.description,
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title: siteDetails.metadata.title,
     description: siteDetails.metadata.description,
     images: ['/images/app-icon.png'],
